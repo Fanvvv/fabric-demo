@@ -26,6 +26,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^2.17.0",
     "@types/node": "^22.5.5",
+    "@types/throttle-debounce": "^5.0.2",
     "@vitejs/plugin-vue": "^5.1.2",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.2.0",
