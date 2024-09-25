@@ -4,14 +4,14 @@ import ToolBar from './views/tool-bar.vue'
 </script>
 
 <template>
-  <div class="container">
+  <div class="page-container">
     <Viewer />
     <ToolBar />
   </div>
 </template>
 
 <style scoped>
-.container {
+.page-container {
   display: flex;
   align-items: center;
   height: 100vh;
