@@ -1,0 +1,48 @@
+@mixin setCanvasWidthHeight($width) {
+  .canvas-width-height {
+    width: $width !important;
+    height: $width !important;
+    min-width: $width !important;
+    min-height: $width !important;
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  @include setCanvasWidthHeight(450px)
+}
+
+@media screen and (max-width: 1400px) and (min-width: 1367px) {
+  @include setCanvasWidthHeight(500px)
+}
+
+@media screen and (max-width: 1500px) and (min-width: 1401px) {
+  @include setCanvasWidthHeight(500px)
+}
+
+@media screen and (max-width: 1600px) and (min-width: 1501px) {
+  @include setCanvasWidthHeight(530px)
+}
+
+@media screen and (max-width: 1650px) and (min-width: 1601px) {
+  @include setCanvasWidthHeight(600px)
+}
+
+@media screen and (max-width: 1700px) and (min-width: 1651px) {
+  @include setCanvasWidthHeight(620px)
+}
+
+@media screen and (max-width: 1750px) and (min-width: 1701px) {
+  @include setCanvasWidthHeight(650px)
+}
+
+@media screen and (max-width: 1800px) and (min-width: 1751px) {
+  @include setCanvasWidthHeight(680px)
+}
+
+@media screen and (max-width: 1850px) and (min-width: 1801px) {
+  @include setCanvasWidthHeight(700px)
+}
+
+@media screen and (min-width: 1850px) {
+  @include setCanvasWidthHeight(720px);
+}
