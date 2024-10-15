@@ -2,7 +2,7 @@
 import { useCanvasInfo } from '../hooks/canvas-info'
 import ColorSelectorItem from './color-selector-item.vue'
 
-const colors = ['red', 'blue', 'green', 'yellow', 'pink', 'purple']
+const colors = ['#985', '#124', '#952', '#156', '#802', '#092']
 
 const canvasInfoStore = useCanvasInfo()
 
@@ -24,21 +24,20 @@ function handleSetCurrentColor(color: string | null) {
     <div>
       背景颜色选择
     </div>
-    <div class="list">
-      <ColorSelectorItem :close="true" @click="handleSetCurrentColor(null)" />
+    <div class="flex flex-wrap gap-2 mt-2">
+      <ColorSelectorItem
+        :close="true"
+        :active="canvasInfoStore.ctx?.backgroundColor === 'transparent'"
+        @click="handleSetCurrentColor(null)"
+      />
 
       <div v-for="item in colors" :key="item">
-        <ColorSelectorItem :color="item" @click="handleSetCurrentColor(item)" />
+        <ColorSelectorItem
+          :color="item"
+          :active="canvasInfoStore.ctx?.backgroundColor === item"
+          @click="handleSetCurrentColor(item)"
+        />
       </div>
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
-}
-</style>
