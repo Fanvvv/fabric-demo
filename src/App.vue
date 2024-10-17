@@ -4,9 +4,11 @@ import ToolBar from './views/tool-bar.vue'
 </script>
 
 <template>
-  <div class="flex justify-center">
-    <div class="flex items-center h-[100vh] max-w-[2000px]">
-      <Viewer />
+  <div class="flex justify-center select-none">
+    <div class="flex items-center h-[100vh] w-full max-w-[2000px]">
+      <div class="flex-1">
+        <Viewer />
+      </div>
       <ToolBar />
     </div>
   </div>
