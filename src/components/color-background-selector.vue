@@ -1,39 +1,41 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useCanvasInfo } from '../hooks/canvas-info'
 import ColorSelectorItem from './color-selector-item.vue'
 import CollapsibleTool from './collapsible-tool.vue'
+import { useLayers } from '@/hooks/layers'
 
 const colors = ['#985', '#124', '#952', '#156', '#802', '#092']
 
-const canvasInfoStore = useCanvasInfo()
+const canvasInfo = useCanvasInfo()
+const layers = useLayers()
+
+const isTransparentActive = computed(() => layers.getLayerBgColor() === 'transparent')
+const isColorActive = (color: string) => computed(() => layers.getLayerBgColor() === color)
 
 function handleSetCurrentColor(color: string | null) {
-  if (canvasInfoStore.ctx) {
-    if (color) {
-      canvasInfoStore.ctx.backgroundColor = color
-    }
-    else {
-      canvasInfoStore.ctx.backgroundColor = 'transparent'
-    }
-    canvasInfoStore.ctx.renderAll()
+  if (canvasInfo.ctx) {
+    canvasInfo.ctx.backgroundColor = color ?? 'transparent'
+    layers.setLayerBgColor(color ?? 'transparent')
+    canvasInfo.ctx.renderAll()
   }
 }
 </script>
 
 <template>
-  <div class="w-[350px]">
-    <CollapsibleTool title="背景颜色选择">
+  <div class="w-[350px]" v-bind="$attrs">
+    <CollapsibleTool title="背景颜色">
       <div class="flex flex-wrap gap-2 mt-2">
         <ColorSelectorItem
           :close="true"
-          :active="canvasInfoStore.ctx?.backgroundColor === 'transparent'"
+          :active="isTransparentActive"
           @click="handleSetCurrentColor(null)"
         />
 
         <div v-for="item in colors" :key="item">
           <ColorSelectorItem
             :color="item"
-            :active="canvasInfoStore.ctx?.backgroundColor === item"
+            :active="isColorActive(item).value"
             @click="handleSetCurrentColor(item)"
           />
         </div>
