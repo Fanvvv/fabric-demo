@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Viewer from './views/viewer.vue'
 import ToolBar from './views/tool-bar.vue'
+import CustomAlertContainer from './components/custom-alert-container.vue'
 </script>
 
 <template>
@@ -11,5 +12,6 @@ import ToolBar from './views/tool-bar.vue'
       </div>
       <ToolBar />
     </div>
+    <CustomAlertContainer />
   </div>
 </template>
