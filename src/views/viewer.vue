@@ -3,18 +3,7 @@ import CanvasView from '../components/canvas-view.vue'
 </script>
 
 <template>
-  <div class="viewer-container">
+  <div class="w-full h-full flex justify-center items-center min-w-[510px] min-h-[90vh]">
     <CanvasView />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.viewer-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 70vw;
-  min-width: 510px;
-  height: 90vh;
-}
-</style>
