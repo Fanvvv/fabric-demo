@@ -1,19 +1,25 @@
 <script setup lang="ts">
 import * as fabric from 'fabric'
-import { onMounted } from 'vue'
+import { markRaw, onMounted } from 'vue'
 import { throttle } from 'throttle-debounce'
 import { useCanvasInfo } from '../hooks/canvas-info'
+import { useBindCanvasEvent } from '../hooks/bind-canvas-event'
 
 const canvasInfoStore = useCanvasInfo()
 
 let initData = false
-function initCanvas() {
+function initCanvas(bindEvent: (ctx: fabric.Canvas) => void) {
   const options = {
     preserveObjectStacking: true, // 设置canvas的activeObject不在最上层
     selection: false, // 设置不能多选
   }
 
-  canvasInfoStore.setCanvasCtx(new fabric.Canvas('canvas', options))
+  // new fabric.Canvas不能为代理对象，否则object缩放等功能会失效
+  // 使用 markRaw 标记为原始对象，不被代理
+  canvasInfoStore.setCanvasCtx(markRaw(new fabric.Canvas('canvas', options)))
+
+  if (typeof bindEvent === 'function')
+    bindEvent(canvasInfoStore.ctx as fabric.Canvas)
 }
 
 // 设置 canvas 宽高
@@ -38,10 +44,11 @@ onMounted(() => {
   if (initData)
     return
   initData = true
-  initCanvas()
 
   const throttleWidthChange = throttle(100, widthChange)
   window.addEventListener('resize', throttleWidthChange)
+  const { bindCanvasContextEvent } = useBindCanvasEvent()
+  initCanvas(bindCanvasContextEvent as unknown as (ctx: fabric.Canvas) => void)
   throttleWidthChange()
 })
 </script>
