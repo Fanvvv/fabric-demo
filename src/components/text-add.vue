@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { useCanvasInfo } from '@/hooks/canvas-info'
 import { useLayers } from '@/hooks/layers'
+import { showAlert } from '@/lib/alert'
 
 const text = ref<string>('')
 const textChange = computed({
@@ -23,6 +24,11 @@ const canvasInfo = useCanvasInfo()
 const layers = useLayers()
 function createText() {
   if (!textChange.value || textChange.value.trim() === '') {
+    showAlert({
+      title: '错误',
+      description: '文本不能为空',
+      type: 'error',
+    })
     return
   }
 
