@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import type { Canvas } from 'fabric'
+import type * as fabric from 'fabric'
 
 interface CanvasInfoState {
   canvasWidth: number
-  ctx: Canvas | null
+  ctx: fabric.Canvas | null
 }
 
 export const useCanvasInfo = defineStore('canvasInfo', {
@@ -15,7 +15,7 @@ export const useCanvasInfo = defineStore('canvasInfo', {
     setCanvasWidth(canvasWidth: number) {
       this.canvasWidth = canvasWidth
     },
-    setCanvasCtx(ctx: Canvas) {
+    setCanvasCtx(ctx: fabric.Canvas) {
       this.ctx = ctx
     },
   },
