@@ -66,6 +66,13 @@ export interface ILayerItemAtText {
   strokeWidth: number
 }
 
+export interface IUpdateTextItem {
+  uuid: string
+  text?: string
+  fontFamily?: string
+  fill?: string
+}
+
 export interface ICreatePerfectText {
   uuid: string
   text: string
@@ -237,6 +244,26 @@ export const useLayers = defineStore('layers', {
             layerItem.angle = angle
           if (typeof opacity === 'number' && !Number.isNaN(opacity))
             layerItem.opacity = opacity
+        }
+      })
+    },
+    // 修改部分text特有的属性
+    updateTextItem(payload: IUpdateTextItem) {
+      const {
+        uuid,
+        text,
+        fontFamily,
+        fill,
+      } = payload
+
+      this.layers[0].layerList.forEach((item) => {
+        if (item.uuid === uuid && item.type === ImageTypes.TEXT) {
+          if (typeof text === 'string')
+            item.text = text
+          if (typeof fontFamily === 'string')
+            item.fontFamily = fontFamily
+          if (typeof fill === 'string')
+            item.fill = fill
         }
       })
     },
