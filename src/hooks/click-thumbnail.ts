@@ -1,12 +1,13 @@
-import { ref } from 'vue'
+import { computed } from 'vue'
 import { useCurrentSelected } from './current-selected'
 import { useCanvasInfo } from './canvas-info'
 
-const isOpen = ref(false)
-
-export function useClickThumbnail() {
+export function useClickThumbnail(uuid: string | null) {
   const currentSelected = useCurrentSelected()
   const canvasInfo = useCanvasInfo()
+  const isOpen = computed(() => {
+    return currentSelected.uuid === uuid
+  })
 
   const handleClickThumbnail = (uuid: string, active: boolean) => {
     const ctx = canvasInfo.ctx
@@ -14,7 +15,6 @@ export function useClickThumbnail() {
       if (active) {
         ctx.discardActiveObject()
         currentSelected.setCurrentSelectedUUID(null)
-        isOpen.value = false
       }
       else {
         const object = ctx.getObjects().find(obj => obj.get('uuid') === uuid)
@@ -22,7 +22,6 @@ export function useClickThumbnail() {
           ctx.setActiveObject(object)
           currentSelected.setCurrentSelectedUUID(uuid)
         }
-        isOpen.value = true
       }
       ctx.renderAll()
     }
