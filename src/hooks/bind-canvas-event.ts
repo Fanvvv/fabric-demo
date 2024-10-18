@@ -82,6 +82,20 @@ export function useBindCanvasEvent() {
     }
   }
 
+  // 文本改变
+  const onTextChanged = (e: fabric.IEvent) => {
+    const target = e.target
+    if (!!target && target.type === 'textbox') {
+      const uuid = target.get('uuid' as keyof fabric.Object)
+      const text = target.get('text' as keyof fabric.Object)
+
+      layers.updateTextItem({
+        uuid,
+        text,
+      })
+    }
+  }
+
   return {
     bindCanvasContextEvent(ctx: fabric.Canvas) {
       // 选择
@@ -94,6 +108,8 @@ export function useBindCanvasEvent() {
       ctx.on('object:rotating', throttle(300, onObjectRotating))
       // 宽高改变
       ctx.on('object:modified', throttle(300, onObjectModified))
+      // 文本改变
+      ctx.on('text:changed', throttle(300, onTextChanged))
     },
   }
 }
