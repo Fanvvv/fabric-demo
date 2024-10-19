@@ -2,8 +2,10 @@
 import draggable from 'vuedraggable'
 import LayersItem from './layers-item.vue'
 import { useLayers } from '@/hooks/layers'
+import { useDraggable } from '@/hooks/draggable'
 
 const layers = useLayers()
+const { handleDragEnd } = useDraggable()
 </script>
 
 <template>
@@ -16,6 +18,7 @@ const layers = useLayers()
       :list="layers.layerList"
       handle=".handle-icon"
       item-key="uuid"
+      @end="handleDragEnd"
     >
       <template #item="{ element }">
         <div>
