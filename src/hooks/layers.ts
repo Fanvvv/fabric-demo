@@ -88,6 +88,21 @@ export interface ICreatePerfectText {
   opacity: number
 }
 
+export interface ICreatePerfectImage {
+  uuid: string
+  url: string
+  width: number
+  height: number
+  left: number
+  top: number
+  scaleX: number
+  scaleY: number
+  angle: number
+  flipX: boolean
+  flipY: boolean
+  opacity: number
+}
+
 // text
 export interface ICloneText {
   uuidOld: string// 宿主的uuid
@@ -177,22 +192,9 @@ export const useLayers = defineStore('layers', {
   actions: {
     // 创建完整数据的文本
     createPerfectText(payload: ICreatePerfectText) {
-      const { uuid, text, width, height, left, top, scaleX, scaleY, angle, flipX, flipY, opacity } = payload
       this.layers.forEach((item) => {
         item.layerList.unshift({
           type: ImageTypes.TEXT,
-          uuid,
-          text,
-          width,
-          height,
-          left,
-          top,
-          scaleX,
-          scaleY,
-          angle,
-          flipX,
-          flipY,
-          opacity,
           visible: true,
           fontSize: 40,
           fontFamily: 'Times New Roman',
@@ -204,7 +206,19 @@ export const useLayers = defineStore('layers', {
           lineHeight: 1.16,
           stroke: undefined,
           strokeWidth: 0,
+          ...payload,
         } as ILayerItemAtText)
+      })
+    },
+    // 创建完整数据的图片
+    createPerfectImage(payload: ICreatePerfectImage) {
+      const { uuid, ...reset } = payload
+      this.layers.forEach((item) => {
+        item.layerList.forEach((layerItem) => {
+          if (layerItem.uuid === uuid) {
+            Object.assign(layerItem, reset)
+          }
+        })
       })
     },
     // 更新图层
