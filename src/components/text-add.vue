@@ -49,8 +49,8 @@ function createText() {
 
     textObj.set('left', left)
     textObj.set('top', top)
-    const width = textObj.get('width').toFixed(0)
-    const height = textObj.get('height').toFixed(0)
+    const width = Number(textObj.get('width').toFixed(0))
+    const height = Number(textObj.get('height').toFixed(0))
     const scaleX = textObj.get('scaleX')
     const scaleY = textObj.get('scaleY')
 
