@@ -8,26 +8,32 @@ export function useAlign() {
     {
       id: 1,
       icon: 'icon-shejiqi-2zuoduiqi',
+      name: '左对齐',
     },
     {
       id: 2,
       icon: 'icon-shejiqi-3juzhongduiqi',
+      name: '水平居中对齐',
     },
     {
       id: 3,
       icon: 'icon-shejiqi-1youduiqi',
+      name: '右对齐',
     },
     {
       id: 4,
       icon: 'icon-shejiqi-5shangduiqi',
+      name: '上对齐',
     },
     {
       id: 5,
       icon: 'icon-shejiqi-6shuipingduiqi',
+      name: '垂直居中对齐',
     },
     {
       id: 6,
       icon: 'icon-shejiqi-4dibuduiqi',
+      name: '下对齐',
     },
   ]
 
