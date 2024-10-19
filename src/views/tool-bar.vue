@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BackgroundSelector from '../components/color-background-selector.vue'
 import TextAdd from '../components/text-add.vue'
+import ImageAdd from '../components/image-add.vue'
 import LayersList from '../components/layers-list.vue'
 </script>
 
@@ -9,6 +10,8 @@ import LayersList from '../components/layers-list.vue'
     <BackgroundSelector class="flex-shrink-0" />
 
     <TextAdd class="flex-shrink-0" />
+
+    <ImageAdd class="flex-shrink-0" />
 
     <LayersList />
   </div>
