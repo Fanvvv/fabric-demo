@@ -294,7 +294,7 @@ export const useLayers = defineStore('layers', {
     getLayerItemByUUID: state => (uuid: string) => {
       return state.layers[0].layerList.find(item => item.uuid === uuid)
     },
-    getLayerBgColor: state => () => {
+    getLayerBgColor: (state): string | null => {
       return state.layers[0].bgColor
     },
   },

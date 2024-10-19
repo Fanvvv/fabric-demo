@@ -10,8 +10,8 @@ const colors = ['#985', '#124', '#952', '#156', '#802', '#092']
 const canvasInfo = useCanvasInfo()
 const layers = useLayers()
 
-const isTransparentActive = computed(() => layers.getLayerBgColor() === 'transparent')
-const isColorActive = (color: string) => computed(() => layers.getLayerBgColor() === color)
+const isTransparentActive = computed(() => layers.getLayerBgColor === 'transparent')
+const isColorActive = (color: string) => computed(() => layers.getLayerBgColor === color)
 
 function handleSetCurrentColor(color: string | null) {
   if (canvasInfo.ctx) {
