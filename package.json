@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ckpack/vue-color": "^1.6.0",
     "@types/fabric": "^5.3.9",
     "@vueuse/core": "^11.1.0",
     "bignumber.js": "^9.1.2",
