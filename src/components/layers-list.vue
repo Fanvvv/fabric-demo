@@ -12,7 +12,7 @@ const { handleDragEnd } = useDraggable()
   <div class="text-base font-bold">
     图层
   </div>
-  <div class="w-[350px] overflow-y-auto scrollbar-thin px-2 pb-2">
+  <div class="w-[350px] overflow-y-auto px-2 pb-2">
     <draggable
       v-if="layers.layerList.length"
       :list="layers.layerList"
