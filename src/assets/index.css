@@ -86,3 +86,29 @@ html, body {
   height: 100%;
   overflow: hidden;
 }
+
+* {
+  scrollbar-color: #8885 #f1f1f1;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8885;
+  border-radius: 1px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8886;
+}
