@@ -6,27 +6,25 @@ export enum ImageTypes {
 }
 
 export interface ILayerItemAtImage {
-  uploadProgress: number
   type: ImageTypes.IMAGE
-  id: number | null
   uuid: string
-  name: string | null
-  url: string | null
+  name: string
+  url: string
   // 是否可见
   visible: boolean
   // 位置信息
-  width: number | null
-  height: number | null
-  left: number | null
-  top: number | null
+  width: number
+  height: number
+  left: number
+  top: number
   // 缩放
-  scaleX: number | null
-  scaleY: number | null
+  scaleX: number
+  scaleY: number
   // 角度
   angle: number
   // 翻转
-  flipX: boolean | null
-  flipY: boolean | null
+  flipX: boolean
+  flipY: boolean
   // 透明度
   opacity: number
 }
@@ -91,6 +89,7 @@ export interface ICreatePerfectText {
 export interface ICreatePerfectImage {
   uuid: string
   url: string
+  name: string
   width: number
   height: number
   left: number
@@ -131,6 +130,25 @@ export interface ICloneText {
   // 描边信息
   stroke: string | undefined
   strokeWidth: number
+}
+
+// image
+export interface ICloneImage {
+  uuidOld: string // 宿主的uuid
+  uuid: string // 克隆对象的uuid（新对象）
+  name: string
+  url: string
+  visible: boolean
+  width: number
+  height: number
+  left: number
+  top: number
+  scaleX: number
+  scaleY: number
+  angle: number
+  flipX: boolean
+  flipY: boolean
+  opacity: number
 }
 
 export interface IUpdateLayerItem {
@@ -214,11 +232,12 @@ export const useLayers = defineStore('layers', {
     createPerfectImage(payload: ICreatePerfectImage) {
       const { uuid, ...reset } = payload
       this.layers.forEach((item) => {
-        item.layerList.forEach((layerItem) => {
-          if (layerItem.uuid === uuid) {
-            Object.assign(layerItem, reset)
-          }
-        })
+        item.layerList.unshift({
+          type: ImageTypes.IMAGE,
+          visible: true,
+          uuid,
+          ...reset,
+        } as ILayerItemAtImage)
       })
     },
     // 更新图层
@@ -288,6 +307,15 @@ export const useLayers = defineStore('layers', {
       this.layers[0].layerList.splice(index, 0, {
         ...rest,
         type: ImageTypes.TEXT,
+      })
+    },
+    // clone Image
+    cloneImage(object: ICloneImage) {
+      const index = this.layers[0].layerList.findIndex(item => item.uuid === object.uuidOld)
+      const { uuidOld, ...rest } = object
+      this.layers[0].layerList.splice(index, 0, {
+        ...rest,
+        type: ImageTypes.IMAGE,
       })
     },
     // 设置图层背景颜色
