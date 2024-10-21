@@ -30,7 +30,7 @@ const { isOpen, handleClickThumbnail } = useClickThumbnail(props.itemObj.uuid)
       <div class="flex items-center gap-2">
         <CollapsibleTrigger as-child>
           <div
-            class="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden border  cursor-pointer"
+            class="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden border cursor-pointer"
             :class="currentSelected.uuid === props.itemObj.uuid ? 'border-red-900' : 'border-gray-200'"
             @click="handleClickThumbnail(props.itemObj.uuid, currentSelected.uuid === props.itemObj.uuid)"
           >
