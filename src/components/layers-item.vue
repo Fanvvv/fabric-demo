@@ -5,6 +5,7 @@ import { useLayerOptions } from '@/hooks/layer-options'
 import { useClickThumbnail } from '@/hooks/click-thumbnail'
 import { useCurrentSelected } from '@/hooks/current-selected'
 import TextOptions from '@/components/text-options.vue'
+import ImageOptions from '@/components/image-options.vue'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 
 interface IProps {
@@ -34,7 +35,7 @@ const { isOpen, handleClickThumbnail } = useClickThumbnail(props.itemObj.uuid)
             @click="handleClickThumbnail(props.itemObj.uuid, currentSelected.uuid === props.itemObj.uuid)"
           >
             <template v-if="props.itemObj.type === ImageTypes.IMAGE">
-              1
+              <img :src="props.itemObj.url!" alt="" class="w-full h-full">
             </template>
             <template v-if="props.itemObj.type === ImageTypes.TEXT">
               <div class="flex items-center justify-center w-full h-full">
@@ -74,7 +75,8 @@ const { isOpen, handleClickThumbnail } = useClickThumbnail(props.itemObj.uuid)
         </div>
       </div>
       <CollapsibleContent class="space-y-2">
-        <TextOptions />
+        <TextOptions v-if="props.itemObj.type === ImageTypes.TEXT" />
+        <ImageOptions v-if="props.itemObj.type === ImageTypes.IMAGE" />
       </CollapsibleContent>
     </Collapsible>
   </div>
