@@ -96,6 +96,11 @@ export function useBindCanvasEvent() {
     }
   }
 
+  // 失去焦点
+  const onObjectDeactivating = () => {
+    currentSelected.setCurrentSelectedUUID(null)
+  }
+
   return {
     bindCanvasContextEvent(ctx: fabric.Canvas) {
       // 选择
@@ -110,6 +115,8 @@ export function useBindCanvasEvent() {
       ctx.on('object:modified', throttle(300, onObjectModified))
       // 文本改变
       ctx.on('text:changed', throttle(300, onTextChanged))
+      // 失去焦点
+      ctx.on('selection:cleared', throttle(300, onObjectDeactivating))
     },
   }
 }
