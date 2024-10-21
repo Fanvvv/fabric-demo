@@ -45,21 +45,25 @@ export function useKeyboard() {
 
   function handleKeyDown(e: KeyboardEvent) {
     if (e.key === 'Delete' || e.key === 'Backspace') {
-      if (currentSelected.uuid)
+      if (currentSelected.uuid) {
         handleDelete(currentSelected.uuid)
+      }
     }
     if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
       handleMove(e.key)
     }
   }
 
-  document.addEventListener('keydown', handleKeyDown)
+  function addEvent() {
+    document.addEventListener('keydown', handleKeyDown)
+  }
 
   function removeEvent() {
     document.removeEventListener('keydown', handleKeyDown)
   }
 
   return {
+    addEvent,
     removeEvent,
   }
 }
