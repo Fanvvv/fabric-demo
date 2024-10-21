@@ -59,7 +59,7 @@ export async function deleteFile(fileName: string): Promise<void> {
 }
 
 // 获取所有文件
-export async function getAllFiles(): Promise<File[]> {
+export async function getAllFiles(): Promise<{ uuid: string, name: string, data: File, lastModified: Date }[]> {
   const db = await openDB()
   return new Promise((resolve, reject) => {
     const transaction = db.transaction([STORE_NAME], 'readonly')
@@ -67,7 +67,12 @@ export async function getAllFiles(): Promise<File[]> {
     const request = store.getAll()
     request.onerror = () => reject(request.error)
     request.onsuccess = () => {
-      const files = request.result.map((entry: any) => entry.data)
+      const files = request.result.map((entry: any) => ({
+        uuid: entry.uuid,
+        name: entry.name,
+        data: entry.data,
+        lastModified: entry.lastModified,
+      }))
       resolve(files)
     }
   })
