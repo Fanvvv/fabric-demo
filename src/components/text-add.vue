@@ -75,7 +75,7 @@ function createText() {
 </script>
 
 <template>
-  <div v-bind="$attrs">
+  <div class="w-[350px]" v-bind="$attrs">
     <CollapsibleTool title="创建文本">
       <div class="p-2">
         <Textarea v-model="textChange" />
