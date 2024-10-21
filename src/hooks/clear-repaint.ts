@@ -1,6 +1,6 @@
 import * as fabric from 'fabric'
 import { useCanvasInfo } from './canvas-info'
-import type { ILayerItemAtText } from './layers'
+import type { ILayerItemAtImage, ILayerItemAtText } from './layers'
 import { useLayers } from './layers'
 import { useCurrentSelected } from './current-selected'
 import { ImageTypes } from '@/hooks/layers'
@@ -25,6 +25,9 @@ export function useClearRepaint() {
       const promiseList = layerList?.map((item) => {
         if (item.type === ImageTypes.TEXT) {
           return repaintText(item)
+        }
+        if (item.type === ImageTypes.IMAGE) {
+          return repaintImage(item)
         }
         return Promise.resolve(null)
       })
@@ -53,6 +56,27 @@ export function useClearRepaint() {
         ...reset,
       })
       resolve(textbox)
+    })
+  }
+
+  function repaintImage(object: ILayerItemAtImage) {
+    return new Promise((resolve) => {
+      const { url, uuid, scaleX, scaleY, left, top, visible, angle, flipX, flipY, opacity } = object
+      fabric.FabricImage.fromURL(url!).then((image) => {
+        image.set('uuid', uuid)
+        image.set('scaleX', scaleX)
+        image.set('scaleY', scaleY)
+        image.set('left', left)
+        image.set('top', top)
+        image.set('visible', visible)
+        image.set('angle', angle)
+        image.set('flipX', flipX)
+        image.set('flipY', flipY)
+        image.set('opacity', opacity)
+        image.set('originX', 'center')
+        image.set('originY', 'center')
+        resolve(image)
+      })
     })
   }
 

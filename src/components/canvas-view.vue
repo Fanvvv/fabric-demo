@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import * as fabric from 'fabric'
-import { markRaw, onMounted } from 'vue'
+import { markRaw, nextTick, onMounted } from 'vue'
 import { throttle } from 'throttle-debounce'
 import { useCanvasInfo } from '../hooks/canvas-info'
 import { useBindCanvasEvent } from '../hooks/bind-canvas-event'
+import { useClearRepaint } from '../hooks/clear-repaint'
 
 const canvasInfoStore = useCanvasInfo()
+const { handleClear, handleRepaint } = useClearRepaint()
 
 let initData = false
 function initCanvas(bindEvent: (ctx: fabric.Canvas) => void) {
@@ -23,7 +25,7 @@ function initCanvas(bindEvent: (ctx: fabric.Canvas) => void) {
 }
 
 // 设置 canvas 宽高
-function widthChange() {
+async function widthChange() {
   const canvasView = document.getElementsByClassName('canvas-view')
 
   if (canvasView && canvasView[0]) {
@@ -37,6 +39,11 @@ function widthChange() {
     }
 
     canvasInfoStore.setCanvasWidth(canvasWidth)
+
+    // 重绘
+    handleClear()
+    await nextTick()
+    await handleRepaint()
   }
 }
 
