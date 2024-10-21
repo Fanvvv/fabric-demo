@@ -1,7 +1,15 @@
 <script setup lang="ts">
+import { onUnmounted } from 'vue'
 import Viewer from './views/viewer.vue'
 import ToolBar from './views/tool-bar.vue'
 import CustomAlertContainer from './components/custom-alert-container.vue'
+import { useKeyboard } from './hooks/keyboard'
+
+const keyboard = useKeyboard()
+
+onUnmounted(() => {
+  keyboard.removeEvent()
+})
 </script>
 
 <template>
