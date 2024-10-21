@@ -37,8 +37,8 @@ export function useBindCanvasEvent() {
     const target = e.target
     if (!!target && target.get('selectable') === true) {
       const uuid = target.get('uuid' as keyof fabric.Object)
-      const scaleX = target.get('scaleX')
-      const scaleY = target.get('scaleY')
+      const scaleX = Number(target.get('scaleX')?.toFixed(2))
+      const scaleY = Number(target.get('scaleY')?.toFixed(2))
       const flipX = target.get('flipX')
       const flipY = target.get('flipY')
 
