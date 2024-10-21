@@ -2,8 +2,9 @@
 import * as fabric from 'fabric'
 import { BigNumber } from 'bignumber.js'
 import { storeToRefs } from 'pinia'
-import CollapsibleTool from './collapsible-tool.vue'
-import UploadFile from './upload-file.vue'
+import CollapsibleTool from '@/components/collapsible-tool.vue'
+import UploadFile from '@/components/upload-file.vue'
+import ImageLibraryDialog from '@/components/image-library-dialog.vue'
 import { file2Base64 } from '@/lib/utils'
 import { useCanvasInfo } from '@/hooks/canvas-info'
 import type { ICreatePerfectImage } from '@/hooks/layers'
@@ -65,6 +66,7 @@ async function handleFileUploaded(file: File, uuid: string) {
     <CollapsibleTool title="添加图片">
       <div class="p-2">
         <UploadFile @file-uploaded="handleFileUploaded" />
+        <ImageLibraryDialog />
       </div>
     </CollapsibleTool>
   </div>
