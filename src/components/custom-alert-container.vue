@@ -5,19 +5,17 @@ import CustomAlert from '@/components/custom-alert.vue'
 
 <template>
   <Teleport to="#alert">
-    <div class="fixed top-2 z-9999">
-      <TransitionGroup name="fade">
-        <CustomAlert
-          v-for="alert in alerts"
-          :key="alert.id"
-          :title="alert.title"
-          :description="alert.description || ''"
-          :type="alert.type"
-          :duration="alert.duration"
-          class="mb-2"
-        />
-      </TransitionGroup>
-    </div>
+    <TransitionGroup name="fade">
+      <CustomAlert
+        v-for="alert in alerts"
+        :key="alert.id"
+        :title="alert.title"
+        :description="alert.description || ''"
+        :type="alert.type"
+        :duration="alert.duration"
+        class="mb-2"
+      />
+    </TransitionGroup>
   </Teleport>
 </template>
 
