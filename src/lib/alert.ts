@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from 'uuid'
 export interface AlertOptions {
   id?: string
   title: string
-  description: string
+  description?: string
   type?: 'info' | 'success' | 'warning' | 'error'
   duration?: number
 }
