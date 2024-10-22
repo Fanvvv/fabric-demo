@@ -42,7 +42,7 @@ onMounted(() => {
   <Transition name="fade">
     <Alert v-if="isVisible" :variant="variant" :class="alertClass" class="min-w-[100px]">
       <AlertTitle class="font-bold mb-2">
-        {{ title }}：
+        {{ title }}
       </AlertTitle>
       <AlertDescription>{{ description }}</AlertDescription>
     </Alert>
