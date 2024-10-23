@@ -44,22 +44,27 @@ const { isOpen, handleClickThumbnail } = useClickThumbnail(props.itemObj.uuid)
             </template>
           </div>
         </CollapsibleTrigger>
-        <div class="flex flex-wrap gap-2 flex-1">
+        <div class="flex flex-col gap-2 flex-1">
           <div class="text-xs">
-            <span>
-              宽度&nbsp;
-            </span>
-            <span class="text-gray-500">
-              {{ props.itemObj.width }} px
-            </span>
+            {{ props.itemObj.type === ImageTypes.IMAGE ? props.itemObj.name : props.itemObj.text }}
           </div>
-          <div class="text-xs">
-            <span>
-              高度&nbsp;
-            </span>
-            <span class="text-gray-500">
-              {{ props.itemObj.height }} px
-            </span>
+          <div class="flex flex-wrap gap-2 flex-1">
+            <div class="text-xs">
+              <span>
+                宽度&nbsp;
+              </span>
+              <span class="text-gray-500">
+                {{ props.itemObj.width }} px
+              </span>
+            </div>
+            <div class="text-xs">
+              <span>
+                高度&nbsp;
+              </span>
+              <span class="text-gray-500">
+                {{ props.itemObj.height }} px
+              </span>
+            </div>
           </div>
         </div>
         <div class="flex items-center gap-2">
