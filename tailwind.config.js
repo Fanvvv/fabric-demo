@@ -89,5 +89,13 @@ module.exports = {
       },
     },
   },
-  plugins: [animate],
+  plugins: [animate, function ({ addUtilities }) {
+    const newUtilities = {
+      '.scrollbar-thin': {
+        'scrollbar-width': 'thin',
+        'scrollbar-color': '#4B5563 #F3F4F6',
+      },
+    }
+    addUtilities(newUtilities, ['responsive', 'hover'])
+  }],
 }
