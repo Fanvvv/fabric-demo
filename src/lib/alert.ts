@@ -1,5 +1,7 @@
-import { ref } from 'vue'
+import type { VNode } from 'vue'
+import { h, ref, render } from 'vue'
 import { v4 as uuidV4 } from 'uuid'
+import ConfirmDialog from '@/components/confirm-dialog.vue'
 
 export interface AlertOptions {
   id?: string
@@ -7,6 +9,13 @@ export interface AlertOptions {
   description?: string
   type?: 'info' | 'success' | 'warning' | 'error'
   duration?: number
+}
+
+export interface IConfirmDialogOptions {
+  title?: string
+  description?: string
+  onConfirm?: () => void
+  onClose?: () => void
 }
 
 export const alerts = ref<AlertOptions[]>([])
@@ -27,4 +36,32 @@ export function removeAlert(id: string) {
   if (index !== -1) {
     alerts.value.splice(index, 1)
   }
+}
+
+export function showConfirmDialog(options: IConfirmDialogOptions) {
+  return new Promise((resolve) => {
+    const container = document.createElement('div')
+
+    function removeContainer() {
+      render(null, container)
+      document.body.removeChild(container)
+    }
+
+    const vnode: VNode = h(ConfirmDialog, {
+      modelValue: true,
+      title: options.title || '',
+      description: options.description || '',
+      onConfirm: () => {
+        removeContainer()
+        resolve(true)
+      },
+      onClose: () => {
+        removeContainer()
+        resolve(false)
+      },
+    })
+
+    render(vnode, container)
+    document.body.appendChild(container)
+  })
 }
