@@ -154,11 +154,11 @@ function handleAddImage() {
             删除
           </Button>
         </div>
-        <div class="w-full flex-1 overflow-y-auto flex flex-wrap gap-2">
+        <div class="w-full flex-1 overflow-y-auto flex flex-wrap gap-2 scrollbar-thin">
           <div
             v-for="(file, index) in filesList"
             :key="index"
-            :class="cn('relative w-[200px] max-h-[252px] flex flex-col overflow-hidden rounded-md border-2 border-transparent shadow-md hover:shadow-xl',
+            :class="cn('relative w-[220px] max-h-[252px] flex flex-col overflow-hidden rounded-md border-2 border-transparent shadow-md hover:shadow-xl',
                        'transition-shadow duration-300 cursor-pointer box-border', `${file.selected ? 'border-2 border-blue-500' : ''}`)"
             @click="handleSelect(file)"
           >
