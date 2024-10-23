@@ -58,6 +58,22 @@ export async function deleteFile(fileName: string): Promise<void> {
   })
 }
 
+// 通过uuid批量删除文件
+export async function deleteFilesByUUID(uuid: string[] | string): Promise<void> {
+  const db = await openDB()
+  return new Promise<void>((resolve) => {
+    const transaction = db.transaction([STORE_NAME], 'readwrite')
+    const store = transaction.objectStore(STORE_NAME)
+    if (Array.isArray(uuid)) {
+      uuid.forEach(uuid => store.delete(uuid))
+    }
+    else {
+      store.delete(uuid)
+    }
+    resolve()
+  })
+}
+
 // 获取所有文件
 export async function getAllFiles(): Promise<{ uuid: string, name: string, data: File, lastModified: Date }[]> {
   const db = await openDB()
