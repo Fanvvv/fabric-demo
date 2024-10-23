@@ -1,11 +1,11 @@
-import { useCurrentSelected } from './current-selected'
-import { useLayerOptions } from './layer-options'
+// import { useCurrentSelected } from './current-selected'
+// import { useLayerOptions } from './layer-options'
 import { useCanvasInfo } from './canvas-info'
 import { useLayers } from './layers'
 
 export function useKeyboard() {
-  const { handleDelete } = useLayerOptions()
-  const currentSelected = useCurrentSelected()
+  // const { handleDelete } = useLayerOptions()
+  // const currentSelected = useCurrentSelected()
   const canvasInfo = useCanvasInfo()
   const layers = useLayers()
 
@@ -44,11 +44,11 @@ export function useKeyboard() {
   }
 
   function handleKeyDown(e: KeyboardEvent) {
-    if (e.key === 'Delete' || e.key === 'Backspace') {
-      if (currentSelected.uuid) {
-        handleDelete(currentSelected.uuid)
-      }
-    }
+    // if (e.key === 'Delete' || e.key === 'Backspace') {
+    //   if (currentSelected.uuid) {
+    //     handleDelete(currentSelected.uuid)
+    //   }
+    // }
     if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
       handleMove(e.key)
     }
