@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import BigNumber from 'bignumber.js'
 
 export enum ImageTypes {
   IMAGE = 'image',
@@ -325,6 +326,15 @@ export const useLayers = defineStore('layers', {
     // 删除图层
     deleteLayerItem(uuid: string) {
       this.layers[0].layerList = this.layers[0].layerList.filter(item => item.uuid !== uuid)
+    },
+    // 转换坐标
+    transformCoordinates(scale: BigNumber) {
+      this.layers[0].layerList.forEach((item) => {
+        item.left = new BigNumber(item.left || 0).multipliedBy(scale).toNumber()
+        item.top = new BigNumber(item.top || 0).multipliedBy(scale).toNumber()
+        item.scaleX = new BigNumber(item.scaleX || 1).multipliedBy(scale).toNumber()
+        item.scaleY = new BigNumber(item.scaleY || 1).multipliedBy(scale).toNumber()
+      })
     },
   },
   getters: {

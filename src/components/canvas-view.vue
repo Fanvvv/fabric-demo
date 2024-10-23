@@ -38,9 +38,18 @@ async function widthChange() {
         width: canvasWidth,
         height: canvasWidth,
       })
+      canvasInfoStore.ctx.requestRenderAll()
     }
 
+    // 缓存 canvas 宽度
+    const cacheCanvasWidth = canvasInfoStore.canvasWidth
+    canvasInfoStore.setCacheCanvasWidth(cacheCanvasWidth)
+
+    // 设置 canvas 宽度
     canvasInfoStore.setCanvasWidth(canvasWidth)
+
+    // 转换坐标
+    canvasInfoStore.transformCoordinates()
 
     // 重绘
     handleClear()
