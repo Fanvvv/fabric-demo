@@ -17,7 +17,6 @@ const emit = defineEmits<{
 
 let db: IDBDatabase | null = null
 
-const files = ref<File[]>([])
 const fileInput = ref<typeof Input | null>(null)
 const dropzone = ref<HTMLElement | null>(null)
 const { isOverDropZone } = useDropZone(dropzone, {
@@ -26,7 +25,6 @@ const { isOverDropZone } = useDropZone(dropzone, {
 })
 
 async function handleFiles(newFiles: File[]) {
-  files.value = [...files.value, ...newFiles]
   // 这里可以添加文件上传逻辑
   if (!db) {
     showAlert({
