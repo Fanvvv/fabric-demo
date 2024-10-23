@@ -144,6 +144,7 @@ function handleAddImage() {
             <Input
               ref="fileInput"
               type="file"
+              accept="image/*"
               :multiple="false"
               class="hidden"
               @change="onFileInputChange($event, getFilesList)"

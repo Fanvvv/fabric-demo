@@ -6,10 +6,13 @@ import { Input } from '@/components/ui/input'
 import { openDB, storeFile } from '@/lib/indexedDB'
 import { showAlert } from '@/lib/alert'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   accept?: string
   multiple?: boolean
-}>()
+}>(), {
+  accept: 'image/*',
+  multiple: false,
+})
 
 const emit = defineEmits<{
   (event: 'fileUploaded', file: File, uuid: string): void
@@ -25,6 +28,14 @@ const { isOverDropZone } = useDropZone(dropzone, {
 })
 
 async function handleFiles(newFiles: File[]) {
+  if (!newFiles[0].type.includes('image')) {
+    showAlert({
+      title: '不支持的文件类型',
+      description: '请上传图片文件',
+      type: 'error',
+    })
+    return
+  }
   // 这里可以添加文件上传逻辑
   if (!db) {
     showAlert({

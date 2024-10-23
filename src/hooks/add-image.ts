@@ -67,6 +67,14 @@ export function useAddImage() {
   }
 
   async function handleFiles(newFiles: File[]) {
+    if (!newFiles[0].type.includes('image')) {
+      showAlert({
+        title: '不支持的文件类型',
+        description: '请上传图片文件',
+        type: 'error',
+      })
+      return
+    }
     const db = await openDB()
     // 这里可以添加文件上传逻辑
     if (!db) {
@@ -77,6 +85,7 @@ export function useAddImage() {
       })
       return
     }
+
     try {
       const uuid = uuidV4()
       await storeFile(db, newFiles[0], uuid)
