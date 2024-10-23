@@ -5,6 +5,8 @@ import { throttle } from 'throttle-debounce'
 import { useCanvasInfo } from '../hooks/canvas-info'
 import { useBindCanvasEvent } from '../hooks/bind-canvas-event'
 import { useClearRepaint } from '../hooks/clear-repaint'
+import { exportCanvasToPNG } from '../lib/utils'
+import { Button } from '@/components/ui/button'
 
 const canvasInfoStore = useCanvasInfo()
 const { handleClear, handleRepaint } = useClearRepaint()
@@ -58,11 +60,20 @@ onMounted(() => {
   initCanvas(bindCanvasContextEvent as unknown as (ctx: fabric.Canvas) => void)
   throttleWidthChange()
 })
+
+function handleExport() {
+  exportCanvasToPNG(canvasInfoStore.ctx?.getElement() as HTMLCanvasElement, 'canvas_export.png')
+}
 </script>
 
 <template>
-  <div class="canvas-view canvas-width-height">
-    <canvas id="canvas" class="bg-transparent" />
+  <div class="flex flex-col items-center gap-2">
+    <Button @click="handleExport">
+      导出为PNG
+    </Button>
+    <div class="canvas-view canvas-width-height">
+      <canvas id="canvas" class="bg-transparent" />
+    </div>
   </div>
 </template>
 
